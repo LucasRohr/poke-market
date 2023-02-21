@@ -1,20 +1,42 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import { Button } from "../../components";
+import { SearchHeader } from "../../components";
 
-import "./styles.js";
+import { styles } from "./styles";
 
 function HomeScreen() {
-  const navigate = useNavigate();
+  const { isGettingPokemon, hasErrorGettingPokemon, pokemonDetail } =
+    useSelector((state) => state.pokemon);
 
-  function onClickProfile() {
-    navigate("/profile");
+  function renderContent() {
+    if (isGettingPokemon) {
+      return (
+        <div style={styles.loaderContainer}>
+          <span>Carregando...</span>
+        </div>
+      );
+    }
+
+    if (hasErrorGettingPokemon) {
+      return (
+        <div style={styles.errorContainer}>
+          <span>Erro ao buscar Pokemon</span>
+        </div>
+      );
+    }
+
+    if (pokemonDetail?.id) {
+      return <div>{pokemonDetail?.name}</div>;
+    }
+
+    return null;
   }
 
   return (
-    <div>
-      <Button text="Perfil" onClick={onClickProfile} />
+    <div style={styles.container}>
+      <SearchHeader />
+      <div style={styles.content}>{renderContent()}</div>
     </div>
   );
 }

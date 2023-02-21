@@ -21,7 +21,7 @@ function App() {
 
   return (
     <Provider store={Store.getStore()}>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </Provider>
   );
 }
