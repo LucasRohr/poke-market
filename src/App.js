@@ -1,3 +1,5 @@
+import "./config/redux-store";
+
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -18,7 +20,7 @@ function App() {
   ]);
 
   return (
-    <Provider store={Store.create()}>
+    <Provider store={Store.getStore()}>
       <RouterProvider router={router} />;
     </Provider>
   );
